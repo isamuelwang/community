@@ -1,0 +1,15 @@
+server: 
+  port: 9004
+spring: 
+  application:  
+    name: community-community #指定服务名
+  datasource:  
+    driverClassName: com.mysql.jdbc.Driver
+    url: jdbc:mysql://122.51.105.58:3306/community_article?characterEncoding=UTF8
+    username: root
+    password: 123456
+  jpa: 
+    database: MySQL
+    show-sql: true
+  redis:
+    host: 122.51.105.58

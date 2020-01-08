@@ -1,0 +1,13 @@
+server: 
+  port: 9005
+spring: 
+  application:  
+    name: gathering-community #指定服务名
+  datasource:  
+    driverClassName: com.mysql.jdbc.Driver
+    url: jdbc:mysql://122.51.105.58:3306/community_gathering?characterEncoding=UTF8
+    username: root
+    password: 123456
+  jpa: 
+    database: MySQL
+    show-sql: true
