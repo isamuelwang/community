@@ -13,6 +13,7 @@
 		<module>community_qa</module>
 		<module>community_article</module>
 		<module>community_gathering</module>
+        <module>community_spit</module>
     </modules>
     <packaging>pom</packaging>
 	<name>community_parent</name>

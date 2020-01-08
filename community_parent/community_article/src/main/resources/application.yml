@@ -13,3 +13,4 @@ spring:
     show-sql: true
   redis:
     host: 122.51.105.58
+    password: 12388888

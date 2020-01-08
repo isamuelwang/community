@@ -1,0 +1,13 @@
+server:
+  port: 9006
+spring:
+  application:
+    name: community-spit
+  data:
+    mongodb:
+      host: 122.51.105.58
+      database: spitdb
+  redis:
+    host: 122.51.105.58
+    password: 12388888
+    port: 6379
