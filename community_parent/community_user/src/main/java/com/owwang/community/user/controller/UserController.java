@@ -4,12 +4,9 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.data.redis.core.StringRedisTemplate;
+import org.springframework.web.bind.annotation.*;
 
 import com.owwang.community.user.pojo.User;
 import com.owwang.community.user.service.UserService;
@@ -29,8 +26,24 @@ public class UserController {
 
 	@Autowired
 	private UserService userService;
-	
-	
+
+	@PostMapping("/register/{code}")
+	public Result regist(@PathVariable String code,@RequestBody User user) {
+		Result result = userService.add(user, code);
+		return result;
+	}
+
+	/**
+	 * 发送手机验证码
+	 * @Date 2020-01-12
+	 * @auther Samuel
+	 */
+	@PostMapping("/sendsms/{mobile}")
+	public Result sendSms(@PathVariable String mobile){
+		Result result = userService.sendSms(mobile);
+		return result;
+	}
+
 	/**
 	 * 查询全部数据
 	 * @return
@@ -74,15 +87,7 @@ public class UserController {
         return new Result(true,StatusCode.OK,"查询成功",userService.findSearch(searchMap));
     }
 	
-	/**
-	 * 增加
-	 * @param user
-	 */
-	@RequestMapping(method=RequestMethod.POST)
-	public Result add(@RequestBody User user  ){
-		userService.add(user);
-		return new Result(true,StatusCode.OK,"增加成功");
-	}
+
 	
 	/**
 	 * 修改

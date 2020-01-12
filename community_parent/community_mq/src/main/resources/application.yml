@@ -1,0 +1,12 @@
+server: 
+  port: 9009
+spring: 
+  application:  
+    name: community-mq #指定服务名
+  rabbitmq:
+    host: 122.51.105.58
+alimsg:
+  ACCESSKEYID: LTAI4Fs683H4kksvpz3ndLsc
+  ACCESSKEYSECRET: 3By9alltBI4kNRNES94zGk8yL1M4xo
+  SIGNNAME: 欧文网
+  TEMPLATECODE: SMS_182535740

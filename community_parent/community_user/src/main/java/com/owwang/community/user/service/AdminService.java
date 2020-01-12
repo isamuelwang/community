@@ -1,4 +1,4 @@
-﻿package com.owwang.community.user.service;
+package com.owwang.community.user.service;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -31,7 +31,6 @@ import com.owwang.community.user.pojo.Admin;
  *
  */
 @Service
-@Transactional
 public class AdminService {
 
 	@Autowired

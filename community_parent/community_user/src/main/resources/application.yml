@@ -11,3 +11,7 @@ spring:
   jpa: 
     database: MySQL
     show-sql: true
+  redis:
+    host: 122.51.105.58
+  rabbitmq:
+    host: 122.51.105.58

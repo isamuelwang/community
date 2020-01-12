@@ -1,28 +1,31 @@
-﻿package com.owwang.community.user.service;
+package com.owwang.community.user.service;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
+import java.util.concurrent.TimeUnit;
 
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Expression;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
-import javax.persistence.criteria.Selection;
 
+import entity.Result;
+import entity.StatusCode;
+import org.apache.commons.lang3.RandomStringUtils;
+import org.apache.commons.lang3.StringUtils;
+import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
+import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
 
+import util.DatetimeUtil;
 import util.IdWorker;
 
 import com.owwang.community.user.dao.UserDao;
 import com.owwang.community.user.pojo.User;
+import util.RegexUtils;
 
 /**
  * 服务层
@@ -31,8 +34,13 @@ import com.owwang.community.user.pojo.User;
  *
  */
 @Service
-@Transactional
 public class UserService {
+
+	@Autowired
+	private StringRedisTemplate redisTemplate;
+
+	@Autowired
+	private RabbitTemplate rabbitTemplate;
 
 	@Autowired
 	private UserDao userDao;
@@ -86,9 +94,82 @@ public class UserService {
 	 * 增加
 	 * @param user
 	 */
-	public void add(User user) {
+	public Result add(User user,String code) {
+		//手机验证码检查
+		//String checkcodInRedis = "";
+		String checkcodInRedis = (String)redisTemplate.opsForValue()
+				.get("sms_checkcode:"+user.getMobile()+":code");
+		//验证手机号是否正确
+		if(!RegexUtils.checkMobile(user.getMobile())){
+			return new Result(false,StatusCode.ERROR,"请输入正确的手机号");
+		}
+		if(userDao.existsByMobile(user.getMobile())){
+			return new Result(false,StatusCode.ERROR,"该手机号已注册");
+		}
+		if(StringUtils.isBlank(checkcodInRedis)){
+			return new Result(false,StatusCode.ERROR,"请先获取验证码");
+		}
+		if(!checkcodInRedis.equals(code)){
+			return new Result(false,StatusCode.ERROR,"验证码错误");
+		}
 		user.setId( idWorker.nextId()+"" );
+		user.setFollowcount(0);//关注数
+		user.setFanscount(0);//粉丝数
+		user.setOnline(0L);//在线时长
+		user.setRegdate(new Date());//注册日期
+		user.setUpdatedate(new Date());//更新日期
+		user.setLastdate(new Date());//最后登陆日期
 		userDao.save(user);
+		redisTemplate.delete("sms_checkcode:"+user.getMobile()+":code");
+		return new Result(true,StatusCode.OK,"注册成功");
+	}
+
+	/**
+	 * 发送验证码
+	 * @param mobile
+	 * @return void
+	 * @Date 2020-01-12
+	 * @auther Samuel
+	 */
+	public Result sendSms(String mobile) {
+		if(userDao.existsByMobile(mobile)){
+			return new Result(false, StatusCode.ERROR,"手机号已注册");
+		}
+		//60秒不能重复发送
+		String timecount = (String)redisTemplate.opsForValue().get("sms_checkcode:"+mobile+":conttime");
+		if(!StringUtils.isBlank(timecount)){
+			return new Result(false, StatusCode.ERROR,"发送频繁，请稍后再试");
+		}
+		//一天不能发超过20条
+		String sCount = (String) redisTemplate.opsForValue().get("sms_checkcode:"+mobile+":count");
+		int count=0;
+		if(sCount!=null){
+			count = Integer.parseInt(sCount);
+		}
+		if(count>=20){
+			return new Result(false, StatusCode.ERROR,"短信发送过多");
+		}
+		//验证手机号是否正确
+		if(!RegexUtils.checkMobile(mobile)){
+			return new Result(false, StatusCode.ERROR,"请输入正确的手机号");
+		}
+		//生成四位随机数数字
+		String random = RandomStringUtils.randomNumeric(5);
+		//向缓存中中存
+		redisTemplate.opsForValue().set("sms_checkcode:"+mobile+":code",random,30, TimeUnit.MINUTES);
+		redisTemplate.opsForValue().set("sms_checkcode:"+mobile+":conttime","计时器",60,TimeUnit.SECONDS);
+		//给用户发
+		Map<String,String> map = new HashMap<>();
+		map.put("mobile",mobile);
+		map.put("checkcode",random);
+		//通知mq发送
+		rabbitTemplate.convertAndSend("sms",map);
+		int seconds = DatetimeUtil.secondsFromZero();
+		count++;
+		redisTemplate.opsForValue().set("sms_checkcode:"+mobile+":count",count+"",seconds,TimeUnit.SECONDS);
+		//控制台（测试）
+		//System.out.println("验证码:"+random);
+		return new Result(true,StatusCode.OK,"发送成功");
 	}
 
 	/**
@@ -162,5 +243,4 @@ public class UserService {
 		};
 
 	}
-
 }

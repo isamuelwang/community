@@ -10,5 +10,5 @@ import com.owwang.community.user.pojo.User;
  *
  */
 public interface UserDao extends JpaRepository<User,String>,JpaSpecificationExecutor<User>{
-	
+    Boolean existsByMobile(String mobile);
 }

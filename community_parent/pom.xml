@@ -16,6 +16,7 @@
         <module>community_spit</module>
         <module>community_search</module>
 		<module>community_user</module>
+        <module>community_mq</module>
     </modules>
     <packaging>pom</packaging>
 	<name>community_parent</name>
