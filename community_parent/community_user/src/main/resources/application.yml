@@ -1,0 +1,13 @@
+server: 
+  port: 9008
+spring: 
+  application:  
+    name: community-user #指定服务名
+  datasource:  
+    driverClassName: com.mysql.jdbc.Driver
+    url: jdbc:mysql://122.51.105.58:3306/community_user?characterEncoding=UTF8
+    username: root
+    password: 123456
+  jpa: 
+    database: MySQL
+    show-sql: true

@@ -15,6 +15,7 @@
 		<module>community_gathering</module>
         <module>community_spit</module>
         <module>community_search</module>
+		<module>community_user</module>
     </modules>
     <packaging>pom</packaging>
 	<name>community_parent</name>
