@@ -1,9 +1,6 @@
 package com.owwang.community.user.service;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
@@ -17,12 +14,14 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import util.IdWorker;
 
 import com.owwang.community.user.dao.AdminDao;
 import com.owwang.community.user.pojo.Admin;
+import util.JwtUtil;
 
 /**
  * 服务层
@@ -38,6 +37,9 @@ public class AdminService {
 	
 	@Autowired
 	private IdWorker idWorker;
+
+	@Autowired
+	private BCryptPasswordEncoder bCryptPasswordEncoder;
 
 	/**
 	 * 查询全部列表
@@ -86,6 +88,8 @@ public class AdminService {
 	 * @param admin
 	 */
 	public void add(Admin admin) {
+		//密码加密
+		admin.setPassword(bCryptPasswordEncoder.encode(admin.getPassword()));
 		admin.setId( idWorker.nextId()+"" );
 		adminDao.save(admin);
 	}
@@ -142,4 +146,16 @@ public class AdminService {
 
 	}
 
+    public Admin login(Admin admin) {
+		//根据用户名查询对象，获取密码
+		Admin resultAdmin = adminDao.findByLoginname(admin.getLoginname());
+		//对密码用bcrypt算法匹配
+		if(resultAdmin!=null&& bCryptPasswordEncoder.matches(admin.getPassword(),
+				resultAdmin.getPassword())){
+			//登录成功
+			return resultAdmin;
+		}
+		//登录失败
+		return null;
+    }
 }

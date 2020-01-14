@@ -1,15 +1,12 @@
 package com.owwang.community.user.controller;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.web.bind.annotation.*;
 
 import com.owwang.community.user.pojo.Admin;
 import com.owwang.community.user.service.AdminService;
@@ -17,6 +14,8 @@ import com.owwang.community.user.service.AdminService;
 import entity.PageResult;
 import entity.Result;
 import entity.StatusCode;
+import util.JwtUtil;
+
 /**
  * 控制器层
  * @author Administrator
@@ -29,7 +28,24 @@ public class AdminController {
 
 	@Autowired
 	private AdminService adminService;
-	
+	@Autowired
+	private JwtUtil jwtUtil;
+
+
+	@PostMapping("/login")
+	public Result login(@RequestBody Admin admin){
+		Admin resultAdmin = adminService.login(admin);
+		if(resultAdmin==null){
+			return new Result(false,StatusCode.ERROR,"登录失败");
+		}
+		//前后端通讯（采用JWT实现）
+		//生成令牌
+		String token = jwtUtil.createJWT(resultAdmin.getId(), resultAdmin.getLoginname(), "admin");
+		Map<String,Object> map = new HashMap<>();
+		map.put("tken",token);
+		map.put("role","admin");
+		return new Result(true,StatusCode.OK,"登录成功",map);
+	}
 	
 	/**
 	 * 查询全部数据

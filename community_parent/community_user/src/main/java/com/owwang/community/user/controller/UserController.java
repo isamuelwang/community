@@ -1,7 +1,9 @@
 package com.owwang.community.user.controller;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.sun.javafx.tk.TKClipboard;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.redis.core.RedisTemplate;
@@ -14,6 +16,10 @@ import com.owwang.community.user.service.UserService;
 import entity.PageResult;
 import entity.Result;
 import entity.StatusCode;
+import util.JwtUtil;
+
+import javax.servlet.http.HttpServletRequest;
+
 /**
  * 控制器层
  * @author Administrator
@@ -26,6 +32,25 @@ public class UserController {
 
 	@Autowired
 	private UserService userService;
+	@Autowired
+	private JwtUtil jwtUtil;
+	@Autowired
+	private HttpServletRequest request;
+
+
+	@PostMapping("/login")
+	public Result login(@RequestBody User user){
+		Result result = userService.login(user);
+		if(result.isFlag()){
+			//与前端进行通信
+			String token = jwtUtil.createJWT(user.getId(), user.getMobile(), "user");
+			Map map = new HashMap();
+			map.put("token", token);
+			map.put("roles","user");
+			return new Result(true,StatusCode.OK,"登录成功",map);
+		}
+		return result;
+	}
 
 	@PostMapping("/register/{code}")
 	public Result regist(@PathVariable String code,@RequestBody User user) {

@@ -15,3 +15,7 @@ spring:
     host: 122.51.105.58
   rabbitmq:
     host: 122.51.105.58
+jwt:
+   config:
+     key: owwang
+     ttl: 3600000

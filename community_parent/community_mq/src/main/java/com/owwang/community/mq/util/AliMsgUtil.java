@@ -103,6 +103,7 @@ public class AliMsgUtil {
         SendSmsResponse sendSmsResponse = null;
         try {
             sendSmsResponse = acsClient.getAcsResponse(request);
+            System.out.println(sendSmsResponse.getMessage());
         }catch (Exception e){
             System.out.println(e.toString());
         }

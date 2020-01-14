@@ -7,9 +7,12 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
+import javax.servlet.http.HttpServletRequest;
 
 import entity.Result;
 import entity.StatusCode;
+import io.jsonwebtoken.Claims;
+import io.netty.util.internal.StringUtil;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
@@ -18,6 +21,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.data.redis.core.StringRedisTemplate;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import util.DatetimeUtil;
@@ -25,6 +29,7 @@ import util.IdWorker;
 
 import com.owwang.community.user.dao.UserDao;
 import com.owwang.community.user.pojo.User;
+import util.JwtUtil;
 import util.RegexUtils;
 
 /**
@@ -47,6 +52,15 @@ public class UserService {
 	
 	@Autowired
 	private IdWorker idWorker;
+
+	@Autowired
+	private BCryptPasswordEncoder bCryptPasswordEncoder;
+
+	@Autowired
+	private JwtUtil jwtUtil;
+
+	@Autowired
+	private HttpServletRequest httpServletRequest;
 
 	/**
 	 * 查询全部列表
@@ -119,6 +133,8 @@ public class UserService {
 		user.setRegdate(new Date());//注册日期
 		user.setUpdatedate(new Date());//更新日期
 		user.setLastdate(new Date());//最后登陆日期
+		//密码加密
+		user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
 		userDao.save(user);
 		redisTemplate.delete("sms_checkcode:"+user.getMobile()+":code");
 		return new Result(true,StatusCode.OK,"注册成功");
@@ -157,7 +173,7 @@ public class UserService {
 		String random = RandomStringUtils.randomNumeric(5);
 		//向缓存中中存
 		redisTemplate.opsForValue().set("sms_checkcode:"+mobile+":code",random,30, TimeUnit.MINUTES);
-		redisTemplate.opsForValue().set("sms_checkcode:"+mobile+":conttime","计时器",60,TimeUnit.SECONDS);
+		redisTemplate.opsForValue().set("sms_checkcode:"+mobile+":conttime","计时器,防止60秒内重复发送",60,TimeUnit.SECONDS);
 		//给用户发
 		Map<String,String> map = new HashMap<>();
 		map.put("mobile",mobile);
@@ -185,6 +201,33 @@ public class UserService {
 	 * @param id
 	 */
 	public void deleteById(String id) {
+/*		String header = httpServletRequest.getHeader("Authorization");
+		if(StringUtils.isEmpty(header)){
+			throw new RuntimeException("权限不足");
+		}
+		if(!header.startsWith("Bearer ")){
+			throw new RuntimeException("权限不足");
+		}
+		String token = header.substring(7);
+		try {
+			Claims claims = jwtUtil.parseJWT(token);
+			String roles = (String)claims.get("roles");
+			if(roles==null||!roles.equals("admin")){
+				throw new RuntimeException("权限不足");
+			}
+		} catch (Exception e) {
+			throw new RuntimeException("权限不足");
+		}
+		if(!userDao.existsById(id)){
+			throw new RuntimeException("id不存在");
+		}*/
+		String token = (String)httpServletRequest.getAttribute("claims_admin");
+		if(StringUtils.isEmpty(token)){
+			throw new RuntimeException("权限不足");
+		}
+		if(!userDao.existsById(id)){
+			throw new RuntimeException("id不存在");
+		}
 		userDao.deleteById(id);
 	}
 
@@ -242,5 +285,22 @@ public class UserService {
 			}
 		};
 
+	}
+
+	public Result login(User user) {
+		//验证手机号是否正确
+		if(!RegexUtils.checkMobile(user.getMobile())){
+			return new Result(false, StatusCode.ERROR,"请输入正确的手机号");
+		}
+		User userResult = userDao.findByMobile(user.getMobile());
+		if(userResult==null){
+			return new Result(false,StatusCode.ERROR,"您所输入的手机号不存在");
+		}
+		if(userResult!=null&&bCryptPasswordEncoder.matches(user.getPassword(),
+				userResult.getPassword())){
+			return new Result(true,StatusCode.OK,"登录成功");
+		}else {
+			return new Result(true,StatusCode.OK,"密码错误");
+		}
 	}
 }
