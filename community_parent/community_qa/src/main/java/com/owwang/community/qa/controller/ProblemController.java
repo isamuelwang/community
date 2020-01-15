@@ -2,15 +2,11 @@ package com.owwang.community.qa.controller;
 import java.util.List;
 import java.util.Map;
 
+import com.owwang.community.qa.client.BaseClient;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import com.owwang.community.qa.pojo.Problem;
 import com.owwang.community.qa.service.ProblemService;
@@ -35,6 +31,14 @@ public class ProblemController {
 	private ProblemService problemService;
 	@Autowired
 	private HttpServletRequest request;
+	@Autowired
+	private BaseClient baseClient;
+
+	@GetMapping("/label/{labelId}")
+	public Result findByLabelId(@PathVariable String labelId){
+		Result result = baseClient.findById(labelId);
+		return result;
+	}
 
 	@RequestMapping(value = "/waitlist/{label}/{page}/{size}",method = RequestMethod.GET)
 	public Result waitlist(@PathVariable Integer label,@PathVariable Integer page,@PathVariable Integer size){

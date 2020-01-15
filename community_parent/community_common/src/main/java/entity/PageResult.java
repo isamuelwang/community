@@ -1,8 +1,9 @@
 package entity;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class PageResult<T> {
+public class PageResult<T> implements Serializable {
 
 	private Long total;
 	private List<T> rows;

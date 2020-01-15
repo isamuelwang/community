@@ -1,0 +1,22 @@
+server:
+  port: 9010
+spring:
+  application:
+    name: community-friend
+  datasource:
+    driverClassName: com.mysql.jdbc.Driver
+    url: jdbc:mysql://122.51.105.58:3306/community_friend?characterEncoding=UTF8
+    username: root
+    password: 123456
+  jpa:
+    database: MySQL
+    show-sql: true
+eureka:
+  client:
+    service‐url:
+      defaultZone: http://admin:123456@127.0.0.1:6868/eureka
+  instance:
+    prefer‐ip‐address: true
+jwt:
+  config:
+    key: owwang

@@ -1,6 +1,5 @@
-package com.owwang.community.user.interceptor;
+package com.owwang.community.friend.interceptor;
 
-import entity.StatusCode;
 import io.jsonwebtoken.Claims;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,24 +18,23 @@ public class JwtInterceptor implements HandlerInterceptor {
     @Autowired
     private JwtUtil jwtUtil;
 
-    public boolean preHandle(javax.servlet.http.HttpServletRequest request, javax.servlet.http.HttpServletResponse response, java.lang.Object handler) throws java.lang.Exception {
+    public boolean preHandle(javax.servlet.http.HttpServletRequest request, javax.servlet.http.HttpServletResponse response, Object handler) throws Exception {
         String header = request.getHeader("Authorization");
-        //System.out.println(header);
+        System.out.println(header);
         if(!StringUtils.isEmpty(header)){
-            //System.out.println("=========");
+            System.out.println("=========");
             if(header.startsWith("Bearer ")){
                 //得到令牌
                 String token = header.substring(7);
-                //System.out.println("token:"+token);
+                System.out.println("token:"+token);
                 //令牌验证
                 try {
                     Claims claims = jwtUtil.parseJWT(token);
                     String roles = (String)claims.get("roles");
-                    //System.out.println("roles:"+roles);
+                    System.out.println("roles:"+roles);
                     if(roles!=null&&roles.equals("admin")){
                         request.setAttribute("claims_admin",claims);
-                    }
-                    if(roles!=null&&roles.equals("user")){
+                    }else if(roles!=null&&roles.equals("user")){
                         request.setAttribute("claims_user",claims);
                     }
                 } catch (Exception e) {

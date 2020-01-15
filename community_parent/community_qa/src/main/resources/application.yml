@@ -2,7 +2,7 @@ server:
   port: 9003
 spring: 
   application:  
-    name: qa-community #指定服务名
+    name: community-qa #指定服务名
   datasource:  
     driverClassName: com.mysql.jdbc.Driver
     url: jdbc:mysql://122.51.105.58:3306/community_qa?characterEncoding=utf-8&useSSL=false
@@ -15,3 +15,12 @@ spring:
 jwt:
   config:
     key: owwang
+eureka:
+  client:
+    service‐url:
+      defaultZone: http://admin:123456@127.0.0.1:6868/eureka
+  instance:
+    prefer‐ip‐address: true
+ribbon:
+  eureka:
+    enabled: true

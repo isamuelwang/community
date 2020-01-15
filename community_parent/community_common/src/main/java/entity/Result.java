@@ -1,15 +1,21 @@
 package entity;
 
-public class Result {
+import org.codehaus.jackson.annotate.JsonIgnoreProperties;
+
+import java.io.Serializable;
+
+@JsonIgnoreProperties(value = {"hibernateLazyInitializer", "handler"})
+public class Result implements Serializable {
 
 	
 	private boolean flag;
 	private Integer code;
 	private String message;
 	private Object data;
-	
-	
-	
+
+	public Result() {
+	}
+
 	public Result(boolean flag, Integer code, String message, Object data) {
 		super();
 		this.flag = flag;

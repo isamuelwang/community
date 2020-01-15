@@ -2,7 +2,7 @@ server:
   port: 9004
 spring: 
   application:  
-    name: community-community #指定服务名
+    name: community-article #指定服务名
   datasource:  
     driverClassName: com.mysql.jdbc.Driver
     url: jdbc:mysql://122.51.105.58:3306/community_article?characterEncoding=UTF8
@@ -13,4 +13,9 @@ spring:
     show-sql: true
   redis:
     host: 122.51.105.58
-    password: 12388888
+eureka:
+  client:
+    service‐url:
+      defaultZone: http://admin:123456@127.0.0.1:6868/eureka
+  instance:
+   prefer‐ip‐address: true

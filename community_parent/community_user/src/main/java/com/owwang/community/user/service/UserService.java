@@ -11,7 +11,6 @@ import javax.servlet.http.HttpServletRequest;
 
 import entity.Result;
 import entity.StatusCode;
-import io.jsonwebtoken.Claims;
 import io.netty.util.internal.StringUtil;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -24,6 +23,7 @@ import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import org.springframework.transaction.annotation.Transactional;
 import util.DatetimeUtil;
 import util.IdWorker;
 
@@ -39,6 +39,7 @@ import util.RegexUtils;
  *
  */
 @Service
+@Transactional
 public class UserService {
 
 	@Autowired
@@ -287,20 +288,25 @@ public class UserService {
 
 	}
 
-	public Result login(User user) {
+	public User login(User user) {
 		//验证手机号是否正确
 		if(!RegexUtils.checkMobile(user.getMobile())){
-			return new Result(false, StatusCode.ERROR,"请输入正确的手机号");
+			throw new RuntimeException("请输入正确的手机号");
 		}
 		User userResult = userDao.findByMobile(user.getMobile());
 		if(userResult==null){
-			return new Result(false,StatusCode.ERROR,"您所输入的手机号不存在");
+			throw new RuntimeException("您所输入的手机号不存在");
 		}
 		if(userResult!=null&&bCryptPasswordEncoder.matches(user.getPassword(),
 				userResult.getPassword())){
-			return new Result(true,StatusCode.OK,"登录成功");
+			return userResult;
 		}else {
-			return new Result(true,StatusCode.OK,"密码错误");
+			throw new RuntimeException("密码错误");
 		}
+	}
+
+    public void updateFanscountAndFollowcount(int number, String userid, String friendid) {
+    	userDao.updateFanscount(number,friendid);
+    	userDao.updateFollowcount(number,userid);
 	}
 }

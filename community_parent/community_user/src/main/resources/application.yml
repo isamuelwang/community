@@ -1,6 +1,9 @@
 server: 
   port: 9008
-spring: 
+spring:
+  cloud:
+    refresh:
+      refreshable: none
   application:  
     name: community-user #指定服务名
   datasource:  
@@ -19,3 +22,9 @@ jwt:
    config:
      key: owwang
      ttl: 3600000
+eureka:
+  client:
+    service‐url:
+      defaultZone: http://admin:123456@127.0.0.1:6868/eureka
+  instance:
+    prefer‐ip‐address: true
