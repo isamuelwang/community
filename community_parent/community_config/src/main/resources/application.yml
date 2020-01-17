@@ -1,0 +1,20 @@
+server:
+  port: 12000
+spring:
+  application:
+    name: community-config
+  cloud:
+    config:
+      server:
+        git:
+          uri: https://github.com/isamuelwang/community-config.git
+  rabbitmq:
+    host: 122.51.105.58
+management:
+  endpoints:  # 暴露bus 接口 ，否则 更新 refresh 没用的
+    web:
+      exposure:    # expose: "*" 已过期
+        include: "*"
+  endpoint:
+    bus-refresh:
+      enabled: true

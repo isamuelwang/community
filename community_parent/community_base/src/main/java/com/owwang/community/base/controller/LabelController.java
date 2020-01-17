@@ -8,6 +8,7 @@ import entity.Result;
 import entity.StatusCode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
 
@@ -24,14 +25,18 @@ import java.util.Map;
 @RestController
 @CrossOrigin
 @RequestMapping("/label")
+@RefreshScope
 public class LabelController {
     @Autowired
     private LabelService labelService;
     @Autowired
     private HttpServletRequest request;
+    @Value("${test_value}")
+    private String testValue;
 
     @RequestMapping(method = RequestMethod.GET)
     public Result findAll() {
+        System.out.println(testValue);
         String header = request.getHeader("Authorization");
         System.out.println("===========header:"+header);
         return new Result(true, StatusCode.OK, "查询成功",

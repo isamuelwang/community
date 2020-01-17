@@ -21,6 +21,7 @@
         <module>community_friend</module>
 		<module>community_manager</module>
 		<module>community_web</module>
+		<module>community_config</module>
 	</modules>
     <packaging>pom</packaging>
 	<name>community_parent</name>
