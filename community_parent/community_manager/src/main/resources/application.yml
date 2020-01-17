@@ -1,0 +1,25 @@
+server:
+  port: 9011
+spring:
+  application:
+    name: community-manager
+eureka:
+  client:
+    service‐url:
+      defaultZone: http://admin:123456@127.0.0.1:6868/eureka
+  instance:
+    prefer‐ip‐address: true
+zuul:
+  routes:
+    community-base:
+      path: /base/**
+      serviceId: community-base
+    community-user:
+      path: /user/**
+      serviceId: community-user
+    community-qa:
+      path: /qa/**
+      serviceId: community-qa
+jwt:
+  config:
+    key: owwang

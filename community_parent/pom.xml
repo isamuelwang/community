@@ -19,7 +19,9 @@
         <module>community_mq</module>
 		<module>community_eureka</module>
         <module>community_friend</module>
-    </modules>
+		<module>community_manager</module>
+		<module>community_web</module>
+	</modules>
     <packaging>pom</packaging>
 	<name>community_parent</name>
     <parent>
