@@ -10,6 +10,8 @@ spring:
           uri: https://github.com/isamuelwang/community-config.git
   rabbitmq:
     host: 122.51.105.58
+    username: root
+    password: 123456
 management:
   endpoints:  # 暴露bus 接口 ，否则 更新 refresh 没用的
     web:
