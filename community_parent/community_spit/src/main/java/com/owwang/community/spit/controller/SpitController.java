@@ -1,9 +1,9 @@
 package com.owwang.community.spit.controller;
 import com.owwang.community.spit.pojo.Spit;
 import com.owwang.community.spit.service.SpitService;
-import entity.PageResult;
-import entity.Result;
-import entity.StatusCode;
+import com.owwang.community.entity.PageResult;
+import com.owwang.community.entity.Result;
+import com.owwang.community.entity.StatusCode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;

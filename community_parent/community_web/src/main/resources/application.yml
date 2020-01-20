@@ -6,7 +6,7 @@ spring:
 eureka:
   client:
     service‐url:
-      defaultZone: http://admin:123456@127.0.0.1:6868/eureka
+      defaultZone: http://admin:123456@122.51.105.58:6868/eureka
   instance:
     prefer‐ip‐address: true
 zuul:

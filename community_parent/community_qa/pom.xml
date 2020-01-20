@@ -6,7 +6,7 @@
         <artifactId>community_parent</artifactId>
         <version>1.0-SNAPSHOT</version>
     </parent>
-    <artifactId>qa_community</artifactId>
+    <artifactId>community_qa</artifactId>
     <dependencies>
         <dependency>
             <groupId>org.springframework.boot</groupId>

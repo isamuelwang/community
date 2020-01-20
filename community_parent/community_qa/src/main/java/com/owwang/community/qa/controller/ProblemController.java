@@ -1,5 +1,4 @@
 package com.owwang.community.qa.controller;
-import java.util.List;
 import java.util.Map;
 
 import com.owwang.community.qa.client.BaseClient;
@@ -11,9 +10,9 @@ import org.springframework.web.bind.annotation.*;
 import com.owwang.community.qa.pojo.Problem;
 import com.owwang.community.qa.service.ProblemService;
 
-import entity.PageResult;
-import entity.Result;
-import entity.StatusCode;
+import com.owwang.community.entity.PageResult;
+import com.owwang.community.entity.Result;
+import com.owwang.community.entity.StatusCode;
 
 import javax.servlet.http.HttpServletRequest;
 

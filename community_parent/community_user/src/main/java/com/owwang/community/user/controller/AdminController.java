@@ -1,20 +1,18 @@
 package com.owwang.community.user.controller;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import com.owwang.community.user.pojo.Admin;
 import com.owwang.community.user.service.AdminService;
 
-import entity.PageResult;
-import entity.Result;
-import entity.StatusCode;
-import util.JwtUtil;
+import com.owwang.community.entity.PageResult;
+import com.owwang.community.entity.Result;
+import com.owwang.community.entity.StatusCode;
+import com.owwang.community.util.JwtUtil;
 
 /**
  * 控制器层

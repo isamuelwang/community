@@ -13,9 +13,9 @@ import org.springframework.web.bind.annotation.RestController;
 import com.owwang.community.qa.pojo.Reply;
 import com.owwang.community.qa.service.ReplyService;
 
-import entity.PageResult;
-import entity.Result;
-import entity.StatusCode;
+import com.owwang.community.entity.PageResult;
+import com.owwang.community.entity.Result;
+import com.owwang.community.entity.StatusCode;
 /**
  * 控制器层
  * @author Administrator

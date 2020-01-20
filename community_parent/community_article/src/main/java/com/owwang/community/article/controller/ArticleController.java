@@ -1,5 +1,4 @@
 package com.owwang.community.article.controller;
-import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,9 +13,9 @@ import org.springframework.web.bind.annotation.RestController;
 import com.owwang.community.article.pojo.Article;
 import com.owwang.community.article.service.ArticleService;
 
-import entity.PageResult;
-import entity.Result;
-import entity.StatusCode;
+import com.owwang.community.entity.PageResult;
+import com.owwang.community.entity.Result;
+import com.owwang.community.entity.StatusCode;
 /**
  * 控制器层
  * @author Administrator

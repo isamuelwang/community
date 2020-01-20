@@ -2,14 +2,9 @@ package com.owwang.community.search.service;
 
 import com.owwang.community.search.dao.ArticleDao;
 import com.owwang.community.search.pojo.Article;
-import entity.PageResult;
-import org.elasticsearch.index.query.BoolQueryBuilder;
-import org.elasticsearch.index.query.QueryBuilders;
-import org.elasticsearch.index.query.WildcardQueryBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 /**

@@ -1,4 +1,4 @@
-package entity;
+package com.owwang.community.entity;
 
 import java.io.Serializable;
 

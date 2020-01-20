@@ -1,13 +1,12 @@
 package com.owwang.community.qa;
-import com.owwang.community.qa.interceptor.JwtInterceptor;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
 import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.context.annotation.Bean;
-import util.IdWorker;
-import util.JwtUtil;
+import com.owwang.community.util.IdWorker;
+import com.owwang.community.util.JwtUtil;
 
 @SpringBootApplication
 @EnableEurekaClient

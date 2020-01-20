@@ -1,23 +1,19 @@
 package com.owwang.community.user.controller;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
-import com.sun.javafx.tk.TKClipboard;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.data.redis.core.RedisTemplate;
-import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.web.bind.annotation.*;
 
 import com.owwang.community.user.pojo.User;
 import com.owwang.community.user.service.UserService;
 
-import entity.PageResult;
-import entity.Result;
-import entity.StatusCode;
-import util.JwtUtil;
+import com.owwang.community.entity.PageResult;
+import com.owwang.community.entity.Result;
+import com.owwang.community.entity.StatusCode;
+import com.owwang.community.util.JwtUtil;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -40,7 +36,7 @@ public class UserController {
 
     /**
      * @Description TODO 更新好友粉丝数量和增加用户关注数量
-     * @return entity.Result
+     * @return com.owwang.community.entity.Result
      * @Date 2020-01-16
      * @auther Samuel
      */

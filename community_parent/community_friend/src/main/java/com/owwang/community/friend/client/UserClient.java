@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 
 /**
  * 更新好友粉丝数量和增加用户关注数量
- * @return entity.Result
+ * @return com.owwang.community.entity.Result
  * @Date 2020-01-16
  * @auther Samuel
  */

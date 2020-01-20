@@ -1,7 +1,7 @@
 package com.owwang.community.base.controller;
 
-import entity.Result;
-import entity.StatusCode;
+import com.owwang.community.entity.Result;
+import com.owwang.community.entity.StatusCode;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 

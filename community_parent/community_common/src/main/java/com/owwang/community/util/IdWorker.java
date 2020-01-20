@@ -1,4 +1,4 @@
-package util;
+package com.owwang.community.util;
 
 import java.lang.management.ManagementFactory;
 import java.net.InetAddress;

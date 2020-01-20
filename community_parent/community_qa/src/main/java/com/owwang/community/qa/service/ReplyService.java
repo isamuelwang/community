@@ -15,7 +15,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
-import util.IdWorker;
+import com.owwang.community.util.IdWorker;
 
 import com.owwang.community.qa.dao.ReplyDao;
 import com.owwang.community.qa.pojo.Reply;

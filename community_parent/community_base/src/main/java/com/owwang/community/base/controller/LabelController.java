@@ -1,11 +1,10 @@
 package com.owwang.community.base.controller;
 
-import com.netflix.discovery.converters.Auto;
 import com.owwang.community.base.pojo.Label;
 import com.owwang.community.base.service.LabelService;
-import entity.PageResult;
-import entity.Result;
-import entity.StatusCode;
+import com.owwang.community.entity.PageResult;
+import com.owwang.community.entity.Result;
+import com.owwang.community.entity.StatusCode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
@@ -14,7 +13,6 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
-import java.util.Map;
 
 /**
  * @Classname BaseController

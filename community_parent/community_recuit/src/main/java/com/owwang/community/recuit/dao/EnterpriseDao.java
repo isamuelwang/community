@@ -16,7 +16,7 @@ public interface EnterpriseDao extends JpaRepository<Enterprise,String>,JpaSpeci
 	/**
 	 * 查询热门信息
 	 * @param ishot
-	 * @return java.util.List<com.owwang.community.recuit.pojo.Enterprise>
+	 * @return java.com.owwang.community.util.List<com.owwang.community.recuit.pojo.Enterprise>
 	 * @Date 2020-01-07
 	 * @auther Samuel
 	 */

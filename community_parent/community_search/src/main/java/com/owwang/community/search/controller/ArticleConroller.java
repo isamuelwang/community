@@ -2,9 +2,9 @@ package com.owwang.community.search.controller;
 
 import com.owwang.community.search.pojo.Article;
 import com.owwang.community.search.service.ArticleService;
-import entity.PageResult;
-import entity.Result;
-import entity.StatusCode;
+import com.owwang.community.entity.PageResult;
+import com.owwang.community.entity.Result;
+import com.owwang.community.entity.StatusCode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;

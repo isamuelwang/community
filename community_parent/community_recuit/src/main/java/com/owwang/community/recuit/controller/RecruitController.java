@@ -14,9 +14,9 @@ import org.springframework.web.bind.annotation.RestController;
 import com.owwang.community.recuit.pojo.Recruit;
 import com.owwang.community.recuit.service.RecruitService;
 
-import entity.PageResult;
-import entity.Result;
-import entity.StatusCode;
+import com.owwang.community.entity.PageResult;
+import com.owwang.community.entity.Result;
+import com.owwang.community.entity.StatusCode;
 /**
  * 控制器层
  * @author Administrator
@@ -32,7 +32,7 @@ public class RecruitController {
 
 	/**
 	 * 查询最新六个推荐岗位信息
-	 * @return entity.Result
+	 * @return com.owwang.community.entity.Result
 	 * @Date 2020-01-07
 	 * @auther Samuel
 	 */

@@ -6,7 +6,7 @@ import com.netflix.zuul.exception.ZuulException;
 import io.jsonwebtoken.Claims;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import util.JwtUtil;
+import com.owwang.community.util.JwtUtil;
 
 import javax.servlet.http.HttpServletRequest;
 

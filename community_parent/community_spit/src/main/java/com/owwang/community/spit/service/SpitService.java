@@ -2,10 +2,8 @@ package com.owwang.community.spit.service;
 
 import com.owwang.community.spit.dao.SpitDao;
 import com.owwang.community.spit.pojo.Spit;
-import entity.Result;
-import entity.StatusCode;
-import javafx.scene.input.DataFormat;
-import jdk.net.SocketFlow;
+import com.owwang.community.entity.Result;
+import com.owwang.community.entity.StatusCode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -17,12 +15,11 @@ import org.springframework.data.mongodb.core.query.Update;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import util.IdWorker;
+import com.owwang.community.util.IdWorker;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
-import java.util.Optional;
 
 /**
  * @Classname SpitService

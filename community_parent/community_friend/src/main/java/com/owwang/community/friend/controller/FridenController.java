@@ -2,8 +2,8 @@ package com.owwang.community.friend.controller;
 
 import com.owwang.community.friend.client.UserClient;
 import com.owwang.community.friend.service.FriendService;
-import entity.Result;
-import entity.StatusCode;
+import com.owwang.community.entity.Result;
+import com.owwang.community.entity.StatusCode;
 import io.jsonwebtoken.Claims;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;

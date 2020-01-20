@@ -1,7 +1,7 @@
 /*
  *    Copyright 2012-2013 The Haohui Network Corporation
  */
-package util;
+package com.owwang.community.util;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;

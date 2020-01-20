@@ -15,7 +15,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
-import util.IdWorker;
+import com.owwang.community.util.IdWorker;
 
 import com.owwang.community.recuit.dao.EnterpriseDao;
 import com.owwang.community.recuit.pojo.Enterprise;
@@ -38,7 +38,7 @@ public class EnterpriseService {
 	/**
 	 * 查询热门信息
 	 * @param ishot
-	 * @return java.util.List<com.owwang.community.recuit.pojo.Enterprise>
+	 * @return java.com.owwang.community.util.List<com.owwang.community.recuit.pojo.Enterprise>
 	 * @Date 2020-01-07
 	 * @auther Samuel
 	 */

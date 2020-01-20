@@ -1,5 +1,4 @@
 package com.owwang.community.gathering.controller;
-import java.util.List;
 import java.util.Map;
 
 import com.owwang.community.gathering.service.GatheringService;
@@ -13,11 +12,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.owwang.community.gathering.pojo.Gathering;
-import com.owwang.community.gathering.service.GatheringService;
 
-import entity.PageResult;
-import entity.Result;
-import entity.StatusCode;
+import com.owwang.community.entity.PageResult;
+import com.owwang.community.entity.Result;
+import com.owwang.community.entity.StatusCode;
 /**
  * 控制器层
  * @author Administrator

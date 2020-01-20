@@ -1,4 +1,4 @@
-package util;
+package com.owwang.community.util;
 
 import java.text.DateFormat;
 import java.text.ParseException;

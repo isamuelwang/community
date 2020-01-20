@@ -9,9 +9,8 @@ import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 import javax.servlet.http.HttpServletRequest;
 
-import entity.Result;
-import entity.StatusCode;
-import io.netty.util.internal.StringUtil;
+import com.owwang.community.entity.Result;
+import com.owwang.community.entity.StatusCode;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
@@ -24,13 +23,13 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import org.springframework.transaction.annotation.Transactional;
-import util.DatetimeUtil;
-import util.IdWorker;
+import com.owwang.community.util.DatetimeUtil;
+import com.owwang.community.util.IdWorker;
 
 import com.owwang.community.user.dao.UserDao;
 import com.owwang.community.user.pojo.User;
-import util.JwtUtil;
-import util.RegexUtils;
+import com.owwang.community.util.JwtUtil;
+import com.owwang.community.util.RegexUtils;
 
 /**
  * 服务层

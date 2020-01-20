@@ -14,9 +14,9 @@ import org.springframework.web.bind.annotation.RestController;
 import com.owwang.community.recuit.pojo.Enterprise;
 import com.owwang.community.recuit.service.EnterpriseService;
 
-import entity.PageResult;
-import entity.Result;
-import entity.StatusCode;
+import com.owwang.community.entity.PageResult;
+import com.owwang.community.entity.Result;
+import com.owwang.community.entity.StatusCode;
 /**
  * 控制器层
  * @author Administrator
@@ -32,7 +32,7 @@ public class EnterpriseController {
 
 	/**
 	 * 查询热门数据
-	 * @return entity.Result
+	 * @return com.owwang.community.entity.Result
 	 * @Date 2020-01-07
 	 * @auther Samuel
 	 */

@@ -1,4 +1,4 @@
-package entity;
+package com.owwang.community.entity;
 
 import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 
